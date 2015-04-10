@@ -90,6 +90,7 @@
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Dictionaries.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Events.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Extensions.pas"/>
+        <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Generators.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Lists.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.LinkedLists.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.MultiMaps.pas"/>
@@ -99,6 +100,7 @@
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Stacks.pas"/>
         <DCCReference Include="..\..\Source\Base\Collections\Spring.Collections.Trees.pas"/>
         <DCCReference Include="..\..\Source\Base\Spring.Comparers.pas"/>
+        <DCCReference Include="..\..\Source\Base\Spring.Coroutines.pas"/>
         <DCCReference Include="..\..\Source\Base\Spring.DesignPatterns.pas"/>
         <DCCReference Include="..\..\Source\Base\Spring.Events.pas"/>
         <DCCReference Include="..\..\Source\Base\Spring.Events.Base.pas"/>
