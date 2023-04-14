@@ -7603,6 +7603,27 @@ end;
 
 function TValueHelper.TryConvert(targetType: PTypeInfo;
   var targetValue: TValue; const formatSettings: TFormatSettings): Boolean;
+
+  function TryImplicitOperator(const Self: TValue; targetType: PTypeInfo;
+    var targetValue: TValue): Boolean;
+  var
+    methods: TArray<TRttiMethod>;
+    i: NativeInt;
+  begin
+    if Kind in [tkRecord{$IF Declared(tkMRecord)}, tkMRecord{$IFEND}] then
+      methods := TType.GetType(TypeInfo).GetMethods('&op_implicit');
+    if targetType.Kind in [tkRecord{$IF Declared(tkMRecord)}, tkMRecord{$IFEND}] then
+      methods := TArray.Concat<TRttiMethod>([methods, TType.GetType(targetType).GetMethods('&op_implicit')]);
+    for i := 0 to High(methods) do
+      if SameTypeInfo(methods[i].GetParameters[0].ParamType.Handle, TypeInfo)
+        and SameTypeInfo(methods[i].ReturnType.Handle, targetType) then
+      begin
+        targetValue := methods[i].Invoke(TValue.Empty, [Self]);
+        Exit(True);
+      end;
+    Result := False;
+  end;
+
 var
   value: TValue;
 begin
@@ -7640,8 +7661,14 @@ begin
         begin
           AsType(System.TypeInfo(TValue), value);
           Exit(value.TryConvert(targetType, targetValue));
-        end;
+        end
+        else if TryImplicitOperator(Self, targetType, targetValue) then
+          Exit(True);
     end;
+
+    if targetType.Kind in [tkRecord{$IF Declared(tkMRecord)}, tkMRecord{$IFEND}] then
+      if TryImplicitOperator(Self, targetType, targetValue) then
+        Exit(True);
 
 {$IFNDEF DELPHIXE2_UP}
     // workaround for wrong TValue.TryCast for string to float (it calls ConvStr2Str by mistake)
