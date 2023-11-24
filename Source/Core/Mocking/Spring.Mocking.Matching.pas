@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  SysUtils,
   Spring,
   Spring.Collections;
 
@@ -137,6 +136,7 @@ implementation
 uses
   Generics.Defaults,
   RegularExpressions,
+  SysUtils,
   TypInfo,
   Spring.ResourceStrings;
 

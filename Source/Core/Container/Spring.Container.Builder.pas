@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  SysUtils,
   Spring,
   Spring.Collections,
   Spring.Container.Core;
@@ -129,6 +128,7 @@ implementation
 
 uses
   Classes,
+  SysUtils,
   TypInfo,
   Spring.Container.Common,
   Spring.Container.ComponentActivator,

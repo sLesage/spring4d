@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  SysUtils,
   TypInfo,
   Spring,
   Spring.Logging;
@@ -142,6 +141,9 @@ type
 
 
 implementation
+
+uses
+  SysUtils;
 
 const
   SClass = 'class = %s';

@@ -50,8 +50,7 @@ uses
   SysUtils,
   TimeSpan,
   Types,
-  TypInfo,
-  Variants;
+  TypInfo;
 
 
   {$REGION 'Interface helper routines'}
@@ -3411,6 +3410,7 @@ uses
   RTLConsts,
   StrUtils,
   SysConst,
+  Variants,
   VarUtils,
 {$IFDEF POSIX}
   Posix.Pthread,

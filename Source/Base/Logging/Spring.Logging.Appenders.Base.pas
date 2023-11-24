@@ -99,7 +99,7 @@ var
   len: Integer;
 begin
   SetLength(Result, 1024);
-  len := ExceptionErrorMessage(e, ExceptAddr, @Result[1], Length(Result));
+  len := ExceptionErrorMessage(e, ExceptAddr, Pointer(Result), Length(Result));
   SetLength(Result, len);
 end;
 

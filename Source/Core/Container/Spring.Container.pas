@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  SysUtils,
   Spring,
   Spring.Collections,
   Spring.Container.Common,
@@ -182,6 +181,7 @@ function GlobalContainer: TContainer; inline;
 implementation
 
 uses
+  SysUtils,
   TypInfo,
   Spring.Container.Builder,
   Spring.Container.CreationContext,

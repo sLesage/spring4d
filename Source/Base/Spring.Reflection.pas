@@ -34,7 +34,6 @@ interface
 uses
   Rtti,
   SyncObjs,
-  SysUtils,
   TypInfo,
   Spring,
   Spring.Collections,
@@ -119,10 +118,6 @@ type
 
   {$REGION 'TRttiObjectHelper'}
 
-  TRttiTypeHack = class(TRttiObject)
-    function GetAttributes: TArray<TCustomAttribute>; override;
-  end;
-
   TRttiObjectHelper = class helper for TRttiObject
   public
     function GetCustomAttributes(attributeClass: TAttributeClass;
@@ -169,7 +164,7 @@ type
 
   {$REGION 'TRttiTypeHelper'}
 
-  TRttiTypeHelper =  class helper for TRttiType
+  TRttiTypeHelper = class helper for TRttiType
   private
     function GetAsInterface: TRttiInterfaceType;
     function GetIsClass: Boolean;
@@ -679,6 +674,7 @@ uses
   RTLConsts,
   StrUtils,
   SysConst,
+  SysUtils,
   Spring.ResourceStrings;
 
 const
@@ -969,11 +965,6 @@ end;
 
 {$REGION 'TRttiTypeHelper'}
 
-function TRttiTypeHack.GetAttributes: TArray<TCustomAttribute>;
-begin
-  Result := inherited;
-end;
-
 function TRttiTypeHelper.GetAttributes(
   inherit: Boolean): TArray<TCustomAttribute>;
 var
@@ -999,7 +990,7 @@ begin
   depth := 0;
   while t <> nil do
   begin
-    flat[depth] := TRttiTypeHack(t).GetAttributes;
+    flat[depth] := TRttiObject(t).GetAttributes;
     if not inherit then
       Break;
     Inc(depth);

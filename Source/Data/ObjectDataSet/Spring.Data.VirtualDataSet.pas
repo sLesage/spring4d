@@ -36,7 +36,6 @@ interface
 uses
   Classes,
   DB,
-  Generics.Defaults,
   SysUtils,
   Spring.Collections,
   Spring.Data.IndexList;
@@ -255,12 +254,14 @@ uses
 {$ELSE}
   Generics.Collections,
 {$ENDIF}
+  Generics.Defaults,
   DBConsts,
   FmtBcd,
   Math,
   Variants,
   VarUtils,
   Spring,
+  Spring.Comparers,
   Spring.Data.ActiveX;
 
 resourcestring

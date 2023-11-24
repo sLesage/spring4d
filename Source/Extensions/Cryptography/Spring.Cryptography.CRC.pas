@@ -30,7 +30,6 @@ interface
 
 uses
   Classes,
-  SysUtils,
   Spring,
   Spring.Cryptography,
   Spring.Cryptography.Base;
@@ -84,6 +83,7 @@ function CRC16Final(var crc: Word): TBuffer;
 implementation
 
 uses
+  SysUtils,
   Spring.Cryptography.Utils;
 
 const

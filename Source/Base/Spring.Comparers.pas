@@ -316,12 +316,12 @@ end;
 
 class function TComparer<T>.Default: IComparer<T>;
 begin
-  Result := IComparer<T>(_LookupVtableInfo(giComparer, TypeInfo(T), Integer(SizeOf(T))));
+  Result := IComparer<T>(_LookupVtableInfo(giComparer, TypeInfo(T), SizeOf(T)));
 end;
 
 class function TEqualityComparer<T>.Default: IEqualityComparer<T>;
 begin
-  Result := IEqualityComparer<T>(_LookupVtableInfo(giEqualityComparer, TypeInfo(T), Integer(SizeOf(T))));
+  Result := IEqualityComparer<T>(_LookupVtableInfo(giEqualityComparer, TypeInfo(T), SizeOf(T)));
 end;
 
 type
@@ -2373,7 +2373,7 @@ end;
 class operator TStringComparer.TOrdinalCaseSensitiveStringComparer.Implicit(
   const value: TOrdinalCaseSensitiveStringComparer): IEqualityComparer<string>;
 begin
-  Result := IEqualityComparer<string>(_LookupVtableInfo(giEqualityComparer, TypeInfo(string), Integer(SizeOf(string))));
+  Result := IEqualityComparer<string>(_LookupVtableInfo(giEqualityComparer, TypeInfo(string), SizeOf(string)));
 end;
 
 function Equals_TypeInfo(const inst: Pointer; const left, right: PPTypeInfo): Boolean;

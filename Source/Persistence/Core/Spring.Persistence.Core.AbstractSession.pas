@@ -30,14 +30,12 @@ interface
 
 uses
   Rtti,
-  TypInfo,
   Spring,
   Spring.Collections,
   Spring.Persistence.Core.EntityCache,
   Spring.Persistence.Core.Interfaces,
   Spring.Persistence.Mapping.Attributes,
-  Spring.Persistence.SQL.Params,
-  Spring.Reflection;
+  Spring.Persistence.SQL.Params;
 
 type
   TAbstractSession = class
@@ -166,6 +164,7 @@ implementation
 uses
   Classes,
   SysUtils,
+  TypInfo,
   Variants,
   Spring.Persistence.Core.EntityMap,
   Spring.Persistence.Core.EntityWrapper,
@@ -174,7 +173,8 @@ uses
   Spring.Persistence.SQL.Commands.Delete,
   Spring.Persistence.SQL.Commands.Insert,
   Spring.Persistence.SQL.Commands.Select,
-  Spring.Persistence.SQL.Commands.Update;
+  Spring.Persistence.SQL.Commands.Update,
+  Spring.Reflection;
 
 
 {$REGION 'TAbstractSession'}

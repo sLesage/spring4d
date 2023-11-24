@@ -35,8 +35,6 @@ uses
   SysUtils,
 {$IFDEF MSWINDOWS}
   ActiveX,
-  ComObj,
-  ShellAPI,
   Windows,
 {$ENDIF MSWINDOWS}
   Spring,
@@ -851,6 +849,8 @@ implementation
 uses
   IOUtils,
 {$IFDEF MSWINDOWS}
+  ComObj,
+  ShellAPI,
   Spring.Utils.WinAPI,
 {$ENDIF MSWINDOWS}
   Spring.Collections.Extensions,

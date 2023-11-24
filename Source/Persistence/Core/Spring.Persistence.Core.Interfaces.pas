@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  Variants,
   Spring,
   Spring.Collections,
   Spring.Persistence.Core.EntityCache,
@@ -378,7 +377,7 @@ implementation
 
 class function TQueryMetadata.GetQueryType(const query: Variant): TQueryType;
 begin
-  case VarType(query) of
+  case TVarData(query).VType of
     varUString, varString, varStrArg, varOleStr: Result := qtQueryText
   else
     Result := qtQueryEntity;

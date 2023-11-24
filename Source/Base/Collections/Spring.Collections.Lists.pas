@@ -31,7 +31,6 @@ interface
 uses
   Classes,
   Generics.Defaults,
-  SysUtils,
   TypInfo,
   Spring,
   Spring.Collections,
@@ -415,6 +414,7 @@ uses
 {$IFDEF DELPHIXE4}
   Rtti, // suppress hint about inlining
 {$ENDIF}
+  SysUtils,
   Spring.Collections.Extensions,
   Spring.Comparers,
   Spring.Events.Base,

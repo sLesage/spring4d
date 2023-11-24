@@ -30,7 +30,6 @@ interface
 
 uses
   Generics.Defaults,
-  SysUtils,
   TypInfo,
   Spring;
 
@@ -190,6 +189,7 @@ implementation
 
 uses
   Math,
+  SysUtils,
   Spring.Comparers,
   Spring.Hash,
   Spring.ResourceStrings;

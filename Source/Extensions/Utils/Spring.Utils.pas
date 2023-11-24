@@ -34,14 +34,10 @@ interface
 
 uses
   Classes,
-  StrUtils,
   SysUtils,
   TypInfo,
 {$IFDEF MSWINDOWS}
-  ComObj,
-  Messages,
   Registry,
-  ShellAPI,
   ShlObj,
   Windows,
   Spring.Utils.WinAPI,
@@ -1050,7 +1046,13 @@ uses
   Posix.Dlfcn,
   System.IOUtils,
 {$ENDIF POSIX}
+{$IFDEF MSWINDOWS}
+  ComObj,
+  Messages,
+  ShellAPI,
+{$ENDIF MSWINDOWS}
   Math,
+  StrUtils,
   Spring.ResourceStrings,
   Spring.SystemUtils;
 

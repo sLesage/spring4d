@@ -395,7 +395,7 @@ var
 {$ENDIF}
 begin
   P := AdditionalInfoOf(typeData);
-  if TCallConv(PByte(p)^) <> ccReg then
+  if TCallConv(p^) <> ccReg then
     raise EInvalidOperationException.CreateRes(@SUnsupportedCallingConvention);
   ParamInfos := PParameterInfos(P + 1);
 

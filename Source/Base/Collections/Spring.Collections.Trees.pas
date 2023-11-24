@@ -1322,7 +1322,7 @@ begin
     child := fRoot;
     repeat
       node := child;
-      compareResult := IComparer<T>(fComparer).Compare(PNode(node).Key, key);
+      compareResult := IComparer<T>(fComparer).Compare(node.Key, key);
       if compareResult = 0 then
         Exit(Pointer(compareResult)); //FI:W541
       i := compareResult shr 31; // left -> 0, right -> 1

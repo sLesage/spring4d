@@ -31,7 +31,6 @@ interface
 uses
   Classes,
   Generics.Defaults,
-  SysUtils,
   Types,
   Spring,
   Spring.Collections,
@@ -968,6 +967,7 @@ implementation
 
 uses
   Rtti,
+  SysUtils,
   TypInfo,
   Spring.Comparers,
   Spring.ResourceStrings;

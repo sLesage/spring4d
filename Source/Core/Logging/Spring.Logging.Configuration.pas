@@ -32,7 +32,6 @@ uses
   SysUtils,
   TypInfo,
   Classes,
-  Rtti,
   Spring,
   Spring.Collections,
   Spring.Container;
@@ -101,6 +100,7 @@ implementation
 uses
   IniFiles,
   RTLConsts,
+  Rtti,
   Spring.Reflection,
   Spring.Container.Common,
   Spring.Container.Registration,

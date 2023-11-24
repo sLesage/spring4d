@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  StrUtils,
   SysUtils,
   TypInfo,
   Spring,
@@ -144,6 +143,9 @@ type
 
 
 implementation
+
+uses
+  StrUtils;
 
 
 {$REGION 'TSerializerBase'}

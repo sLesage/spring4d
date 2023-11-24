@@ -34,8 +34,7 @@ uses
   SysUtils,
   Spring,
   Spring.Cryptography,
-  Spring.Cryptography.Base,
-  Spring.ResourceStrings;
+  Spring.Cryptography.Base;
 
 type
   /// <summary>
@@ -77,6 +76,9 @@ procedure EncryptData(const keyData, inData: array of Byte; var outData: array o
 procedure DecryptData(const keyData, inData: array of Byte; var outData: array of Byte);
 
 implementation
+
+uses
+  Spring.ResourceStrings;
 
 type
   TKeyByte = array [0..5] of Byte;

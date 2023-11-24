@@ -29,8 +29,7 @@ unit Spring.Data.ExpressionParser.Functions;
 interface
 
 uses
-  Spring.Collections,
-  SysUtils;
+  Spring.Collections;
 
 type
   TGetValueFunc = reference to function(const args: Variant): Variant;
@@ -55,6 +54,7 @@ uses
   DateUtils,
   Math,
   StrUtils,
+  SysUtils,
   Variants,
   Spring;
 

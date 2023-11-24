@@ -29,7 +29,6 @@ unit Spring.Collections.LinkedLists;
 interface
 
 uses
-  Generics.Defaults,
   Spring,
   Spring.Collections,
   Spring.Collections.Base;
@@ -113,6 +112,7 @@ type
 implementation
 
 uses
+  Generics.Defaults,
   Spring.Collections.Events,
   Spring.Comparers,
   Spring.ResourceStrings;
