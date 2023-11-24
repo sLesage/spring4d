@@ -62,7 +62,7 @@ type
 implementation
 
 uses
-{$IF Defined(DELPHIXE4_UP) and not Defined(NEXTGEN)}
+{$IF Defined(DELPHIXE4_UP)}
   AnsiStrings,
 {$ELSE}
   SysUtils,

@@ -251,9 +251,7 @@ begin
 
     RegisterTests('Spring.Base.Reflection.ValueConverters', [
       TTestFromString.Suite,
-  {$IFNDEF NEXTGEN}
       TTestFromWideString.Suite,
-  {$ENDIF}
       TTestFromInteger.Suite,
       TTestFromCardinal.Suite,
       TTestFromSmallInt.Suite,

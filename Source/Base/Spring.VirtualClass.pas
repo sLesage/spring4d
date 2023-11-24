@@ -75,11 +75,7 @@ type
     FieldTable: PVmtFieldTable;
     MethodTable: PVmtMethodTable;
     DynamicTable: Pointer;
-{$IFNDEF NEXTGEN}
     ClassName: PShortString;
-{$ELSE}
-    ClassName: TTypeInfoFieldAccessor;
-{$ENDIF}
     InstanceSize: Integer;
     Parent: PClass;
 

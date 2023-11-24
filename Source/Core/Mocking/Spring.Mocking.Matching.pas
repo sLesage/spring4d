@@ -240,12 +240,10 @@ begin
       Assert(index <= 9); // only support up to index 9 for a Char
       PWideChar(@Result)^ := s[1];
     end;
-{$IFNDEF NEXTGEN}
     tkLString:
       PAnsiString(@Result)^ := AnsiString(s);
     tkWString:
       PWideString(@Result)^ := s;
-{$ENDIF}
     tkUString:
       PUnicodeString(@Result)^ := s;
   end;

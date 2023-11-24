@@ -56,10 +56,8 @@ type
     function ComputeHash(const buffer: array of Byte; startIndex, count: Integer): TBuffer; overload;
     function ComputeHash(const buffer: Pointer; count: Integer): TBuffer; overload;
     function ComputeHash(const inputString: string): TBuffer; overload;
-{$IFNDEF NEXTGEN}
     function ComputeHash(const inputString: WideString): TBuffer; overload;
     function ComputeHash(const inputString: RawByteString): TBuffer; overload;
-{$ENDIF}
     function ComputeHash(const inputStream: TStream): TBuffer; overload; virtual;
     function ComputeHashOfFile(const fileName: string): TBuffer; virtual;
     property HashSize: Integer read GetHashSize;
@@ -120,20 +118,16 @@ type
     function Encrypt(const buffer: array of Byte): TBuffer; overload;
     function Encrypt(const buffer: array of Byte; startIndex, count: Integer): TBuffer; overload;
     function Encrypt(const inputString: string): TBuffer; overload;
-{$IFNDEF NEXTGEN}
     function Encrypt(const inputString: WideString): TBuffer; overload;
     function Encrypt(const inputString: RawByteString): TBuffer; overload;
-{$ENDIF}
     procedure Encrypt(inputStream, outputStream: TStream); overload;
     function Decrypt(const buffer: Pointer; count: Integer): TBuffer; overload;
     function Decrypt(const buffer: TBuffer): TBuffer; overload;
     function Decrypt(const buffer: array of Byte): TBuffer; overload;
     function Decrypt(const buffer: array of Byte; startIndex, count: Integer): TBuffer; overload;
     function Decrypt(const inputString: string): TBuffer; overload;
-{$IFNDEF NEXTGEN}
     function Decrypt(const inputString: WideString): TBuffer; overload;
     function Decrypt(const inputString: RawByteString): TBuffer; overload;
-{$ENDIF}
     procedure Decrypt(inputStream, outputStream: TStream); overload;
     property CipherMode: TCipherMode read GetCipherMode write SetCipherMode;
     property PaddingMode: TPaddingMode read GetPaddingMode write SetPaddingMode;
@@ -193,7 +187,6 @@ begin
   Result := ComputeHash(PByte(inputString), Length(inputString) * SizeOf(Char));
 end;
 
-{$IFNDEF NEXTGEN}
 function THashAlgorithmBase.ComputeHash(const inputString: WideString): TBuffer;
 begin
   Result := ComputeHash(PByte(inputString), Length(inputString) * SizeOf(WideChar));
@@ -204,7 +197,6 @@ function THashAlgorithmBase.ComputeHash(
 begin
   Result := ComputeHash(PByte(inputString), Length(inputString));
 end;
-{$ENDIF}
 
 function THashAlgorithmBase.ComputeHash(const inputStream: TStream): TBuffer;
 var
@@ -287,7 +279,6 @@ begin
   Result := Encrypt(PByte(inputString), Length(inputString) * SizeOf(Char));
 end;
 
-{$IFNDEF NEXTGEN}
 function TSymmetricAlgorithmBase.Encrypt(
   const inputString: WideString): TBuffer;
 begin
@@ -299,7 +290,6 @@ function TSymmetricAlgorithmBase.Encrypt(
 begin
   Result := Encrypt(PByte(inputString), Length(inputString));
 end;
-{$ENDIF}
 
 procedure TSymmetricAlgorithmBase.Encrypt(inputStream, outputStream: TStream);
 var
@@ -498,7 +488,6 @@ begin
   Result := Decrypt(PByte(inputString), Length(inputString) * SizeOf(Char));
 end;
 
-{$IFNDEF NEXTGEN}
 function TSymmetricAlgorithmBase.Decrypt(
   const inputString: WideString): TBuffer;
 begin
@@ -510,7 +499,6 @@ function TSymmetricAlgorithmBase.Decrypt(
 begin
   Result := Decrypt(PByte(inputString), Length(inputString));
 end;
-{$ENDIF}
 
 procedure TSymmetricAlgorithmBase.Decrypt(inputStream, outputStream: TStream);
 var

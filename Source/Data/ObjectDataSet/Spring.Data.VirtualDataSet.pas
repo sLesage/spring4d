@@ -44,10 +44,6 @@ uses
 type
   EVirtualDataSetException = class(Exception);
 
-  {$IFDEF NEXTGEN}
-  TRecordBuffer = TRecBuf;
-  PAnsiChar = MarshaledAString;
-{$ENDIF !NEXTGEN}
 {$IFNDEF DELPHIXE3_UP}
   TValueBuffer  = Pointer;
 {$ENDIF}
@@ -132,12 +128,8 @@ type
     procedure SetRecBufSize;
 
     // Abstract overrides
-    function AllocRecordBuffer: TRecordBuffer; {$IFNDEF NEXTGEN}override;{$ENDIF}
-    procedure FreeRecordBuffer(var Buffer: TRecordBuffer); {$IFNDEF NEXTGEN}override;{$ENDIF}
-    {$IFDEF NEXTGEN}
-    function AllocRecBuf: TRecBuf; override;
-    procedure FreeRecBuf(var Buffer: TRecBuf); override;
-    {$ENDIF}
+    function AllocRecordBuffer: TRecordBuffer; override;
+    procedure FreeRecordBuffer(var Buffer: TRecordBuffer); override;
 
     procedure DataEvent(Event: TDataEvent; Info: {$IFDEF DELPHIXE2_UP}NativeInt{$ELSE}LongInt{$ENDIF}); override;
 
@@ -146,14 +138,12 @@ type
     procedure SetBookmarkData(Buffer: TRecBuf; Data: TBookmark); override;
     {$ENDIF}
 
-    {$IFNDEF NEXTGEN}
     {$IFDEF DELPHIXE3_UP}
     procedure GetBookmarkData(Buffer: TRecordBuffer; Data: TBookmark); override;
     procedure SetBookmarkData(Buffer: TRecordBuffer; Data: TBookmark); override;
     {$ENDIF}
     procedure GetBookmarkData(Buffer: TRecordBuffer; Data: Pointer); override;
     procedure SetBookmarkData(Buffer: TRecordBuffer; Data: Pointer); override;
-    {$ENDIF}
 
     function GetBookmarkFlag(Buffer: TRecordBuffer): TBookmarkFlag; override;
 
@@ -292,11 +282,6 @@ type
     class function UnsafeInToVariant(const B: TArray<Byte>; Offset: Integer = 0): Variant; static; inline;
   end;
 {$IFEND}
-
-{$IFDEF NEXTGEN}
-type
-  WideString = UnicodeString;
-{$ENDIF}
 
 function DataSetLocateThrough(DataSet: TDataSet; const KeyFields: string;
   const KeyValues: Variant; Options: TLocateOptions): Boolean;
@@ -466,13 +451,6 @@ begin
     Pointer(Result) := nil;
 end;
 
-{$IFDEF NEXTGEN}
-function TBaseVirtualDataSet.AllocRecBuf: TRecBuf;
-begin
-  Result := AllocRecordBuffer;
-end;
-{$ENDIF}
-
 function TBaseVirtualDataSet.BookmarkValid(Bookmark: TBookmark): Boolean;
 begin
   Result := Assigned(Bookmark) and Assigned(PObject(Bookmark)^)
@@ -560,13 +538,6 @@ begin
   FreeMem(Pointer(Buffer));
 end;
 
-{$IFDEF NEXTGEN}
-procedure TBaseVirtualDataSet.FreeRecBuf(var Buffer: TRecBuf);
-begin
-  FreeRecordBuffer(Buffer);
-end;
-{$ENDIF}
-
 function TBaseVirtualDataSet.GetActiveRecBuf(var RecBuf: TRecordBuffer): Boolean;
 begin
   Pointer(RecBuf) := nil;
@@ -607,7 +578,6 @@ begin
 end;
 {$ENDIF}
 
-{$IFNDEF NEXTGEN}
 {$IFDEF DELPHIXE3_UP}
 procedure TBaseVirtualDataSet.GetBookmarkData(Buffer: TRecordBuffer; Data: TBookmark);
 begin
@@ -635,7 +605,6 @@ begin
   else
     PArrayRecInfo(Buffer).Index := -1;
 end;
-{$ENDIF}
 
 function TBaseVirtualDataSet.GetBookmarkFlag(Buffer: TRecordBuffer): TBookmarkFlag;
 begin
@@ -1262,10 +1231,8 @@ procedure TBaseVirtualDataSet.SetFieldData(Field: TField; Buffer: TValueBuffer; 
     TempBuff: TValueBuffer;
   begin
     case Field.DataType of
-{$IFNDEF NEXTGEN}
       ftString, ftFixedChar, ftGuid:
         Data := AnsiString(PAnsiChar(Buffer));
-{$ENDIF}
       ftWideString, ftFixedWideChar:
         Data := WideString(PWideChar(Buffer));
       ftAutoInc, ftInteger:
@@ -1550,11 +1517,7 @@ begin
       else
       begin
         { Convert OleStr into a pascal string (format used by TBlobField) }
-{$IFNDEF NEXTGEN}
         fFieldData := AnsiString(fFieldData);
-{$ELSE}
-        fFieldData := VarToStr(fFieldData);
-{$ENDIF}
         Size := Length(fFieldData);
       end;
     end
@@ -1570,20 +1533,12 @@ function TBaseVirtualDataSet.TBlobStream.Realloc(
   procedure VarAlloc(var V: Variant; Field: TFieldType);
   var
     W: WideString;
-{$IFNDEF NEXTGEN}
     S: AnsiString;
-{$ELSE}
-    S: string;
-{$ENDIF}
   begin
     if Field = ftMemo then
     begin
       if not VarIsNull(V) then
-{$IFNDEF NEXTGEN}
         S := AnsiString(V);
-{$ELSE}
-        S := VarToStr(V);
-{$ENDIF}
       SetLength(S, NewCapacity);
       V := S;
     end

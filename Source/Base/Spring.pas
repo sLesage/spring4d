@@ -1508,12 +1508,10 @@ type
     class procedure CheckRange<T>(const buffer: array of T; index, count: Integer); overload; static;
     class procedure CheckRange(const s: string; index: Integer); overload; static; inline;
     class procedure CheckRange(const s: string; index, count: Integer); overload; static; inline;
-{$IFNDEF NEXTGEN}
     class procedure CheckRange(const s: WideString; index: Integer); overload; static; inline;
     class procedure CheckRange(const s: WideString; index, count: Integer); overload; static; inline;
     class procedure CheckRange(const s: RawByteString; index: Integer); overload; static; inline;
     class procedure CheckRange(const s: RawByteString; index, count: Integer); overload; static; inline;
-{$ENDIF}
     class procedure CheckRange(condition: Boolean; const argumentName: string); overload; static; inline;
     class procedure CheckRange(length, index, count: Integer; indexBase: Integer = 0); overload; static; inline;
 
@@ -1820,10 +1818,8 @@ type
   end;
 
   TNullableString = Nullable<string>;
-{$IFNDEF NEXTGEN}
   TNullableAnsiString = Nullable<AnsiString>;
   TNullableWideString = Nullable<WideString>;
-{$ENDIF}
   TNullableInteger = Nullable<Integer>;
   TNullableInt64 = Nullable<Int64>;
   TNullableNativeInt = Nullable<NativeInt>;
@@ -4130,10 +4126,8 @@ const
     SizeOf(Currency){8});
 begin
   case typeInfo.Kind of
-{$IFNDEF NEXTGEN}
     tkChar:
       Result := SizeOf(AnsiChar){1};
-{$ENDIF}
     tkWChar:
       Result := SizeOf(WideChar){2};
     tkInteger, tkEnumeration:
@@ -4838,10 +4832,8 @@ begin
     tkVariant:
       Result := True;
 {$IFEND}
-{$IFNDEF NEXTGEN}
     tkString:
       Result := GetTypeData(TypeInfo)^.MaxLength > SizeOf(Pointer);
-{$ENDIF}
 {$IF declared(tkMRecord)}
     tkMRecord:
       Result := True;
@@ -5099,30 +5091,17 @@ end;
 class function TEnum.GetNames<T>: TStringDynArray;
 var
   typeData: PTypeData;
-{$IFDEF NEXTGEN}
-  p: TTypeInfoFieldAccessor;
-{$ELSE}
   p: PShortString;
-{$ENDIF}
   i: NativeInt;
 begin
   Guard.CheckTypeKind<T>(tkEnumeration, 'T');
   typeData := GetTypeData(TypeInfo(T));
   SetLength(Result, typeData.MaxValue - typeData.MinValue + 1);
-{$IFDEF NEXTGEN}
-  p := typedata^.NameListFld;
-{$ELSE}
   p := @typedata.NameList;
-{$ENDIF}
   for i := Low(Result) to High(Result) do
   begin
-{$IFDEF NEXTGEN}
-    Result[i] := p.ToString;
-    p.SetData(p.Tail);
-{$ELSE}
     Result[i] := UTF8ToString(p^);
     Inc(PByte(p), Length(p^) + 1);
-{$ENDIF}
   end;
 end;
 
@@ -5361,10 +5340,8 @@ begin
         otUWord: defaultField := TDefaultField<Word>.Create(offset, value);
         otULong: defaultField := TDefaultField<Cardinal>.Create(offset, value);
       end;
-    {$IFNDEF NEXTGEN}
     tkChar:
       defaultField  := TDefaultField<AnsiChar>.Create(offset, value);
-    {$ENDIF}
     tkFloat:
       if (fieldType = TypeInfo(TDateTime)) and (VarType(value) = varUString) then
         defaultField := TDefaultField<TDateTime>.Create(offset, StrToDateTime(value, ISO8601FormatSettings))
@@ -5382,10 +5359,8 @@ begin
         end;
     tkWChar:
       defaultField := TDefaultField<Char>.Create(offset, value);
-    {$IFNDEF NEXTGEN}
     tkWString:
       defaultField := TDefaultField<WideString>.Create(offset, value);
-    {$ENDIF}
     tkVariant:
       defaultField := TDefaultField<Variant>.Create(offset, value);
     tkInt64:
@@ -5422,10 +5397,8 @@ begin
         otUWord: defaultField := TDefaultProperty<Word>.Create(propInfo, value);
         otULong: defaultField := TDefaultProperty<Cardinal>.Create(propInfo, value);
       end;
-    {$IFNDEF NEXTGEN}
     tkChar:
       defaultField  := TDefaultProperty<AnsiChar>.Create(propInfo, value);
-    {$ENDIF}
     tkFloat:
       if (fieldType = TypeInfo(TDateTime)) and (VarType(value) = varUString) then
         defaultField := TDefaultProperty<TDateTime>.Create(propInfo, StrToDateTime(value, ISO8601FormatSettings))
@@ -5443,10 +5416,8 @@ begin
         end;
     tkWChar:
       defaultField := TDefaultProperty<Char>.Create(propInfo, value);
-    {$IFNDEF NEXTGEN}
     tkWString:
       defaultField := TDefaultProperty<WideString>.Create(propInfo, value);
-    {$ENDIF}
     tkVariant:
       defaultField := TDefaultProperty<Variant>.Create(propInfo, value);
     tkInt64:
@@ -6535,9 +6506,7 @@ begin
     varLongWord: Result := TVarData(value).VLongWord;
     varInt64: Result := TVarData(value).VInt64;
     varUInt64: Result := TVarData(value).VUInt64;
-{$IFNDEF NEXTGEN}
     varString: Result := string(AnsiString(TVarData(value).VString));
-{$ENDIF}
     varUString: Result := UnicodeString(TVarData(value).VUString);
   else
     if TVarData(value).VType and varArray = varArray then
@@ -8468,7 +8437,6 @@ begin
     Guard.RaiseArgumentOutOfRangeException(ValueArgName);
 end;
 
-{$IFNDEF NEXTGEN}
 class procedure Guard.CheckRange(const s: WideString; index: Integer);
 begin
   Guard.CheckIndex(Length(s), index, 1);
@@ -8488,7 +8456,6 @@ class procedure Guard.CheckRange(const s: RawByteString; index, count: Integer);
 begin
   Guard.CheckRange(Length(s), index, count, 1);
 end;
-{$ENDIF}
 
 class procedure Guard.CheckTypeKind(typeInfo: PTypeInfo;
   expectedTypeKind: TTypeKind; const argumentName: string);
@@ -10298,11 +10265,7 @@ end;
 
 function TTypeInfoHelper.TypeName: string;
 begin
-{$IFNDEF NEXTGEN}
   Result := UTF8ToString(Name);
-{$ELSE}
-  Result := NameFld.ToString;
-{$ENDIF}
 end;
 
 function TTypeInfoHelper.TypeSize: Integer;

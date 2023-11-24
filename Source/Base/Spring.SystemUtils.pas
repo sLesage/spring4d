@@ -50,7 +50,6 @@ type
 /// </remarks>
 function GetByteLength(const s: string): Integer; overload; inline;
 
-{$IFNDEF NEXTGEN}
 /// <summary>
 ///   Retrieves the byte length of a WideString.
 /// </summary>
@@ -61,8 +60,6 @@ function GetByteLength(const s: WideString): Integer; overload; inline;
 ///   UTF8String).
 /// </summary>
 function GetByteLength(const s: RawByteString): Integer; overload; inline;
-{$ENDIF NEXTGEN}
-
 
 /// <summary>
 ///   Splits a string into different parts delimited by the specified delimiter
@@ -123,7 +120,6 @@ begin
   Result := Length(s) * SizeOf(Char);
 end;
 
-{$IFNDEF NEXTGEN}
 function GetByteLength(const s: WideString): Integer;
 begin
   Result := Length(s) * SizeOf(WideChar);
@@ -133,7 +129,6 @@ function GetByteLength(const s: RawByteString): Integer;
 begin
   Result := Length(s);
 end;
-{$ENDIF}
 
 function SplitString(const buffer: string; const separators: TSysCharSet;
   removeEmptyEntries: Boolean): TStringDynArray;
