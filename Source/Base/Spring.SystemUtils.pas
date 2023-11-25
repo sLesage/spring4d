@@ -34,7 +34,6 @@ interface
 uses
   SysUtils,
   Types,
-  TypInfo,
   Spring;
 
 type

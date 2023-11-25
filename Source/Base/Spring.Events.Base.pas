@@ -90,11 +90,10 @@ type
 
 implementation
 
-uses
 {$IFDEF MSWINDOWS}
-  Windows,
+uses
+  Windows;
 {$ENDIF}
-  TypInfo;
 
 {$IFOPT O+}
 function IsValidObject(p: Pointer): Boolean;

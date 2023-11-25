@@ -95,7 +95,6 @@ uses
   Math,
   SyncObjs,
   SysUtils,
-  Variants,
   {$IFDEF MSWINDOWS}
   Windows,
   {$ENDIF}

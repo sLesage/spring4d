@@ -31,7 +31,6 @@ unit Spring.Cryptography.SHA;
 interface
 
 uses
-  SysUtils,
   Spring,
   Spring.Cryptography,
   Spring.Cryptography.Base;

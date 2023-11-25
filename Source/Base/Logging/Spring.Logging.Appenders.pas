@@ -208,7 +208,7 @@ uses
 {$IFDEF ANDROID}
   Androidapi.Log,
 {$ENDIF}
-  Rtti,
+  Rtti, // H2443
   Spring,
   Spring.Logging.ResourceStrings;
 

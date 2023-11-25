@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  SysUtils,
   Spring,
   Spring.Collections,
   Spring.Container.Core;

@@ -82,7 +82,7 @@ var
 implementation
 
 uses
-  Generics.Collections, Variants, Masks, StrUtils, Math, Classes, Spring;
+  Generics.Collections, Variants, Masks, Math, Classes, Spring;
 
   (*
 {$IFDEF COMPILER12_UP}

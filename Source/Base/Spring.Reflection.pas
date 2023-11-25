@@ -670,10 +670,8 @@ procedure PassArg(Par: TRttiParameter; const ArgSrc: TValue;
 implementation
 
 uses
-  Math,
   RTLConsts,
   StrUtils,
-  SysConst,
   SysUtils,
   Spring.ResourceStrings;
 

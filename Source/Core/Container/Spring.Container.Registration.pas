@@ -164,7 +164,6 @@ implementation
 
 uses
   Generics.Defaults,
-  SysUtils,
   TypInfo,
   Spring.Collections.Lists,
   Spring.Comparers,

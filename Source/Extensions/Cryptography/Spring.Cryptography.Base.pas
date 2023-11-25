@@ -155,7 +155,6 @@ type
 implementation
 
 uses
-  Math,
   Spring.ResourceStrings;
 
 

@@ -29,7 +29,6 @@ unit Spring.Cryptography.CRC;
 interface
 
 uses
-  Classes,
   Spring,
   Spring.Cryptography,
   Spring.Cryptography.Base;

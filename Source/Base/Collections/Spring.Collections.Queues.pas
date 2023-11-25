@@ -157,8 +157,6 @@ type
 implementation
 
 uses
-  Classes,
-  SysUtils,
   TypInfo,
   Spring.Events.Base,
   Spring.ResourceStrings;

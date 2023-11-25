@@ -343,7 +343,7 @@ function TConfigurationReader.GetType(const className: string;
 begin
   Guard.CheckNotNull(className <> '', SClass);
   //Both fully qualified and just class name supported
-  TRttiType(Result) := TType.FindType(className);
+  Result := TType.FindType(className);
   if (Result = nil) or (needInstance and (not Result.IsInstance)) then
     raise EClassNotFound.CreateResFmt(@SClassNotFound, [className]);
 end;

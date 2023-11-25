@@ -3407,7 +3407,9 @@ uses
   System.Hash,
 {$ENDIF}
   Math,
+{$IFNDEF DELPHIX_BERLIN_UP}
   RTLConsts,
+{$ENDIF}
   StrUtils,
   SysConst,
   Variants,

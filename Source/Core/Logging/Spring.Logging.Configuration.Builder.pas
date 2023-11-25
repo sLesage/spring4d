@@ -30,7 +30,6 @@ interface
 
 uses
   Rtti,
-  TypInfo,
   Spring,
   Spring.Logging;
 
@@ -143,6 +142,9 @@ type
 implementation
 
 uses
+{$IF defined(DELPHIXE4) or defined(DELPHIXE5) or defined(DELPHIXE6)}
+  TypInfo, // H2443
+{$IFEND}
   SysUtils;
 
 const

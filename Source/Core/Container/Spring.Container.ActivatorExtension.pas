@@ -56,7 +56,6 @@ type
 implementation
 
 uses
-  Generics.Defaults,
   Rtti,
   Spring.Collections,
   Spring.Container.Common,

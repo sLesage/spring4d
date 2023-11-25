@@ -45,7 +45,7 @@ const
   {$EXTERNALSYM VER_NT_SERVER}
 
 const
-  VER_SERVER_NT                      = DWORD($80000000);
+  VER_SERVER_NT                      = $80000000;
   {$EXTERNALSYM VER_SERVER_NT}
   VER_WORKSTATION_NT                 = $40000000;
   {$EXTERNALSYM VER_WORKSTATION_NT}

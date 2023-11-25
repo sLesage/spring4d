@@ -56,9 +56,7 @@ uses
   Posix.Pthread,
 {$ENDIF}
   SyncObjs,
-  SysUtils,
   Spring;
-
 
 type
   TEra = Int64;

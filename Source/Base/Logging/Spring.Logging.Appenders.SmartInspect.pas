@@ -43,7 +43,6 @@ type
 implementation
 
 uses
-  SysUtils,
   TypInfo,
   SiAuto,
   SmartInspect,

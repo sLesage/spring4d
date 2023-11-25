@@ -542,7 +542,6 @@ procedure ValidateParams(keyType, valueType: PTypeInfo; capacity: Integer; owner
 implementation
 
 uses
-  SysUtils,
   Types,
   TypInfo,
   Spring.Comparers,

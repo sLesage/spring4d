@@ -6978,7 +6978,6 @@ function GetElementType(typeInfo: PTypeInfo): PTypeInfo;
 implementation
 
 uses
-  Character,
   Rtti,
   Spring.Collections.Base,
   Spring.Collections.Dictionaries,

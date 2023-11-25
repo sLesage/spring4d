@@ -833,7 +833,6 @@ uses
   {$ENDIF HAS_UNIT_SYSTEM_UITYPES}
 {$ENDIF SPRING_DISABLE_GRAPHICS}
   Math,
-  StrUtils,
   SysUtils,
   Types,
   Variants,

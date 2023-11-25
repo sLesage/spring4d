@@ -188,7 +188,6 @@ function HashTableFindItem(hashTable: PHashTable; const key; options: Byte = 0):
 implementation
 
 uses
-  Math,
   SysUtils,
   Spring.Comparers,
   Spring.Hash,
