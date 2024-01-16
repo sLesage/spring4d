@@ -9816,7 +9816,7 @@ begin
         until count = 0;
       tkDynArray:
         repeat
-          DynArrayAssign(target, source, typeInfo);
+          DynArrayAssign(PPointer(target)^, PPointer(source)^, typeInfo);
           Inc(PByte(target), SizeOf(Pointer));
           Inc(PByte(source), SizeOf(Pointer));
           Dec(count);
@@ -9933,7 +9933,7 @@ begin
         Inc(PByte(target), n);
         Inc(PByte(source), n);
         repeat
-          DynArrayAssign(target, source, typeInfo);
+          DynArrayAssign(PPointer(target)^, PPointer(source)^, typeInfo);
           Dec(PByte(target), SizeOf(Pointer));
           Dec(PByte(source), SizeOf(Pointer));
           Dec(count);
