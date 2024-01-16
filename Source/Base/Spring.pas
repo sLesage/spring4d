@@ -7854,9 +7854,7 @@ type
   protected
     FHandle: Pointer;
     FRttiDataSize: Integer;
-    {$IFDEF WEAKINSTREF}[Weak]{$ENDIF}
     FPackage: TRttiPackage;
-    {$IFDEF WEAKINSTREF}[Weak]{$ENDIF}
     FParent: TRttiObject;
   end;
 
@@ -9747,15 +9745,6 @@ begin
   if count = 0 then Exit;
   if PByte(target) < PByte(source) then
     case PTypeInfo(typeInfo).Kind of
-{$IFDEF WEAKINSTREF}
-      tkMethod:
-        repeat
-          PMethodPointer(target)^ := PMethodPointer(source)^;
-          Inc(PByte(target), SizeOf(TMethod));
-          Inc(PByte(source), SizeOf(TMethod));
-          Dec(count);
-        until count = 0;
-{$ENDIF}
       tkLString:
         repeat
           PAnsiString(target)^ := PAnsiString(source)^;
@@ -9824,20 +9813,6 @@ begin
     end
   else
     case PTypeInfo(typeInfo).Kind of
-{$IFDEF WEAKINSTREF}
-      tkMethod:
-      begin
-        n := (count - 1) * SizeOf(TMethod);
-        Inc(PByte(target), n);
-        Inc(PByte(source), n);
-        repeat
-          PMethodPointer(target)^ := PMethodPointer(source)^;
-          Dec(PByte(target), SizeOf(TMethod));
-          Dec(PByte(source), SizeOf(TMethod));
-          Dec(count);
-        until count = 0;
-      end;
-{$ENDIF}
       tkLString:
       begin
         n := (count - 1) * SizeOf(Pointer);
