@@ -1834,7 +1834,7 @@ type
   TNullableHelper = record
   strict private
     fValueType: PTypeInfo;
-    fHasValueOffset: Byte;
+    fHasValueOffset: NativeInt;
     fHasValueKind: TTypeKind;
   public
     constructor Create(typeInfo: PTypeInfo);
@@ -8910,7 +8910,7 @@ begin
   fValueType := field.Field.TypeRef^;
   // get TTypeData.RecFields[1]
   field := PRecordTypeField(PByte(SkipShortString(@field.Name)) + SizeOf(TAttrData));
-  fHasValueOffset := Byte(field.Field.FldOffset);
+  fHasValueOffset := field.Field.FldOffset;
   fHasValueKind := field.Field.TypeRef^.Kind;
 end;
 
