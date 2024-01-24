@@ -180,7 +180,7 @@ type
     procedure Detach(const observer: IObserver);
   end;
 
-  TService = class(TInterfacedObject, IObserver)
+  TService = class(TRefCountedObject, IObserver)
   private
     fSubject: ISubject;
   public
