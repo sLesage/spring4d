@@ -6557,7 +6557,7 @@ begin
 {$IF Declared(ShortString)}
     vtString: Result := string(value.VString^);
 {$IFEND}
-    vtPointer: Result := value.VPointer;
+    vtPointer: Result := TValue.From(value.VPointer, System.TypeInfo(Pointer));
 {$IF Declared(PAnsiChar)}
     vtPChar: Result := string(value.VPChar);
 {$IFEND}
