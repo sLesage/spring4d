@@ -47,6 +47,9 @@ type
     procedure TestVariant;
     procedure TestDynArray;
     procedure TestRecord;
+    procedure TestRecord2;
+    procedure TestDynArrayOfRec2;
+    procedure TestStaticArrayOfRec2;
     procedure TestRegex;
     procedure TestEnum;
     procedure TestSet;
@@ -167,9 +170,18 @@ type
     Str: string;
   end;
 
+  TRec2 = record
+    obj: TObject;
+  end;
+
+  TRec2Array = array[0..1] of TRec2;
+
   TFoo = class
   public
     function Method(const rec: TRec): Integer; virtual; abstract;
+    function Method2(const rec: TRec2): Integer; virtual; abstract;
+    function DynArrayOfRec2(const rec: TArray<TRec2>): Integer; virtual; abstract;
+    function StaticArrayOfRec2(const rec: TRec2Array): Integer; virtual; abstract;
   end;
 
   IObserver = interface(IInvokable)
@@ -417,6 +429,18 @@ begin
   Pass;
 end;
 
+procedure TParameterMatchingTests.TestDynArrayOfRec2;
+var
+  mock: Mock<TFoo>;
+  rec: TRec2;
+begin
+  rec.Obj := nil;
+  mock.Setup.Returns(42).When.DynArrayOfRec2(Arg.IsAny<TArray<TRec2>>);
+  CheckEquals(42, mock.Instance.DynArrayOfRec2(TArray<TRec2>.Create(rec)));
+  mock.Received(1).DynArrayOfRec2(Arg.IsAny<TArray<TRec2>>);
+  Pass;
+end;
+
 procedure TParameterMatchingTests.TestEnum;
 var
   mock: Mock<IMockTest>;
@@ -472,6 +496,18 @@ begin
   Pass;
 end;
 
+procedure TParameterMatchingTests.TestRecord2;
+var
+  mock: Mock<TFoo>;
+  rec: TRec2;
+begin
+  rec.Obj := nil;
+  mock.Setup.Returns(42).When.Method2(Arg.IsAny<TRec2>);
+  CheckEquals(42, mock.Instance.Method2(rec));
+  mock.Received(1).Method2(Arg.IsAny<TRec2>);
+  Pass;
+end;
+
 procedure TParameterMatchingTests.TestRegex;
 var
   mock: Mock<IMockTest>;
@@ -491,6 +527,19 @@ begin
   mock.Instance.TestSet(0, [1]);
   mock.Received(1).TestSet(0, [1]);
   mock.Received(0).TestSet(0, [2,3]);
+  Pass;
+end;
+
+procedure TParameterMatchingTests.TestStaticArrayOfRec2;
+var
+  mock: Mock<TFoo>;
+  arr: TRec2Array;
+begin
+  arr[0].Obj := nil;
+  arr[1].Obj := nil;
+  mock.Setup.Returns(42).When.StaticArrayOfRec2(Arg.IsAny<TRec2Array>);
+  CheckEquals(42, mock.Instance.StaticArrayOfRec2(arr));
+  mock.Received(1).StaticArrayOfRec2(Arg.IsAny<TRec2Array>);
   Pass;
 end;
 

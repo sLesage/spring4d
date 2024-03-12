@@ -129,7 +129,7 @@ type
     class operator Implicit(const value: TAny): string; overload;
   end;
 
-procedure CleanupArguments(const arguments: TArray<TValue>);
+procedure CleanupArguments(const arguments: array of TValue);
 
 implementation
 
@@ -298,16 +298,37 @@ begin
   PVariant(@Result)^ := index;
 end;
 
-procedure CleanupArguments(const arguments: TArray<TValue>);
+procedure CleanupArguments(const arguments: array of TValue);
+type
+  PValueData = ^TValueData;
 var
   i: Integer;
+  fields: TArray<TRttiField>;
+  value: TValue;
 begin
   for i := 0 to High(arguments) do
     if arguments[i].IsType(TypeInfo(TIndexWrapper)) then
     begin
       TObject(TValueData(arguments[i]).FAsObject).Free;
-      TValueData(arguments[i]).FAsObject := nil;
-    end;
+      PValueData(@arguments[i]).FAsObject := nil;
+    end else
+      case arguments[i].Kind of
+        tkRecord{$IF Declared(tkMRecord)}, tkMRecord{$IFEND}:
+        begin
+          fields := TType.GetType(arguments[i].TypeInfo).GetFields;
+          if fields = nil then
+            Continue;
+          value := fields[0].GetValue(arguments[i].GetReferenceToRawData);
+          CleanupArguments(value);
+        end;
+        tkArray, tkDynArray:
+        begin
+          if arguments[i].GetArrayLength = 0 then
+            Continue;
+          value := arguments[i].GetArrayElement(0);
+          CleanupArguments(value);
+        end;
+      end;
 end;
 
 
